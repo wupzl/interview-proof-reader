@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="面试官的审判：七章技术面试小说，七组本地训练。从知道到讲清楚，让真实能力有据可循。"><title>内容与技术说明 · 面试官的审判</title><script>try{let t=localStorage.getItem('interview-proof-theme');document.documentElement.dataset.theme=['light','white','dark'].includes(t)?t:'light';document.documentElement.style.setProperty('--reading-size',Math.max(16,Math.min(26,Number(localStorage.getItem('interview-proof-size'))||19))+'px')}catch(e){}</script><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><script src="app.js" defer></script><script src="training.js" defer></script></head>
+<body data-chapter="0"><a class="skip" href="#main">跳到正文</a><div id="progress" aria-hidden="true"></div><header class="site-header"><a class="brand" href="index.html"><span class="brand-seal" aria-hidden="true">证</span><span>面试官的审判<small>THE EVIDENCE OF UNDERSTANDING</small></span></a><nav class="shelf-nav" aria-label="学习项目导航"><a class="shelf-home" href="/">← 学习书架</a><details class="shelf-switch"><summary>切换项目</summary><div class="shelf-menu"><a href="/pytorch-apprentice/">PyTorch：炼金术士的学徒</a><a href="/ai-era-reader/">AI 纪元</a><a href="/data-empire-reader/">数据帝国</a><a href="/rag-empire-reader/">RAG 帝国</a><a href="/system-design-reader/">系统设计</a><a href="/online-troubleshooting-reader/">生产环境</a><a href="/coding-agent-reader/">Agent 帝国</a><a href="/interview-proof-reader/" aria-current="page">面试官的审判</a></div></details></nav><div class="controls"><button id="search-open" title="搜索全书（/）">搜索</button><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换阅读背景">米白</button></div></header>
+<nav class="section-nav" aria-label="本书导航"><a href="index.html">全书案卷</a><a href="practice.html">面试训练</a><a href="reading.html">我的阅读</a><a href="editorial.html">内容说明</a><span>连载 · 第八章待续</span></nav>
+<main id="main" class="standalone"><article><h1 id="_1">关于这份案卷</h1>
+<h2 id="_2">原稿与编辑方式</h2>
+<p>本书改编自用户提供的《面试官的审判》Markdown。原稿保存在仓库 <code>source/interviewdescription.md</code>，校验值见 <code>CONTENT_REVIEW.json</code>；编辑后的七章位于 <code>chapters/</code>，可独立维护。人物、情节与七章结构保留，第八章只保留预告，当前状态为连载。</p>
+<p>本次编辑清理了复制按钮、预填自评分数、重复预告标题和导出残片；将面向原对话用户的表述改为公开阅读措辞；把错误导出的公式改为可复制、可被读屏读取的文本，重新整理指标表格与反问清单。七组训练为本项目补充的学习材料，参考答案是思路示例，不是对任何人的真实经历描述。</p>
+<h2 id="_3">技术项目素材</h2>
+<p>训练题参考了用户补充的技术简历，聚焦两类项目：Coding Agent Runtime 与文档检索问答平台。素材包括 Provider 流式事件适配、JSONL Memory、上下文压缩、MCP 工具延迟加载、Heading Path 分块、pgvector、metadata-aware rerank 和检索评测。项目背景已经概括处理；原始简历、姓名、联系方式、学校及雇主信息未收录。</p>
+<p>简历中的结果不自动等同于已独立核实的事实。练习会要求填写样本、实验环境、统计口径、个人职责及验证材料。BM25/RRF 是书中的通用技术讨论，不代表参考项目已经实现。任何示例都需要按自己的真实经历调整。</p>
+<h2 id="_4">技术核对与阅读边界</h2>
+<ul>
+<li>普通队列下，<code>ThreadPoolExecutor</code> 达到核心线程数后优先入队，无法入队时再尝试扩容。示例中的实际线程数也受提交与任务完成时序影响。参见 <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/ThreadPoolExecutor.html">Java 官方 API 文档</a>。</li>
+<li>Redis 锁需要区分所有权校验、锁有效期和故障假设。解锁应检查令牌归属，简单设置过期时间不能覆盖所有并发问题。参见 <a href="https://redis.io/docs/latest/develop/clients/patterns/distributed-locks/">Redis 官方分布式锁说明</a>。</li>
+<li>RRF 依据不同结果列表中的排名融合候选，不等于直接相加原始相似度分数。参见 <a href="https://www.elastic.co/docs/reference/elasticsearch/rest-apis/reciprocal-rank-fusion">Elastic 官方 RRF 文档</a>。</li>
+<li>Little 定律 <code>L = λ × W</code> 描述稳定系统的长期平均量，单位和系统边界必须一致；QPS、并发请求和连接数量不能随意互换。</li>
+<li>Hit@K 表示是否命中至少一个相关项；Recall@K 需要全部已标注相关项作为分母。单正例情况下部分指标可能相等，多正例下不能混用。MRR 关注首个相关结果的位置。</li>
+<li>0.48→0.64 是增加 16 个百分点，相对提升约 33.3%。算术正确不等于实验结论可靠，仍需报告样本、对照与局限。</li>
+<li>书中压测数字、候选人评语与模型化表达均用于教学。涉及 GC、SDK、模型和框架的实现细节，需要对照实际版本；本次核对聚焦上述关键表述，不代表对全部技术内容完成独立复现。</li>
+</ul>
+<h2 id="_5">训练如何工作</h2>
+<p>所有填写、自查、计时与简单计算都在浏览器完成。复盘展示考察点、参考思路和你勾选的自查项目，不自动判断答案正确性，也不代表招聘方评分。点击“复制 AI 点评提示词”只复制文字，由你决定是否粘贴到外部工具。</p>
+<p>记录保存在当前浏览器，不跨设备同步；清除网站数据可能使记录丢失。可将训练导出为 Markdown，并下载 JSON 备份。使用共享设备时，请自行管理本地记录和导出文件。</p></article></main>
+<footer><a class="footer-title" href="index.html">面试官的审判</a><p>让真实能力，有据可循。</p><div><a href="editorial.html">内容与技术说明</a><a href="https://github.com/wupzl/interview-proof-reader">GitHub ↗</a></div><small>七章正文 · 第八章预告 · 无需登录 · 记录保存在当前浏览器</small></footer>
+<dialog id="search-dialog" aria-labelledby="search-title"><div class="dialog-heading"><h2 id="search-title">检索全书</h2><button id="search-close" aria-label="关闭搜索">×</button></div><label for="query">关键词</label><input id="query" type="search" placeholder="例如：个人贡献、Memory、评测" autocomplete="off"><p id="search-status" role="status">输入关键词开始搜索</p><div id="search-results"></div></dialog><div id="toast" role="status" aria-live="polite"></div></body></html>
