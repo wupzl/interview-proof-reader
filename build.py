@@ -7,7 +7,7 @@ ROOT=Path(__file__).resolve().parent
 DOCS=ROOT/'docs'
 BOOK=json.loads((ROOT/'book.json').read_text(encoding='utf-8'))
 CHAPTERS=BOOK['chapters']
-PROJECTS=[('pytorch-apprentice','PyTorch：炼金术士的学徒'),('ai-era-reader','AI 纪元'),('data-empire-reader','数据帝国'),('rag-empire-reader','RAG 帝国'),('system-design-reader','系统设计'),('online-troubleshooting-reader','生产环境'),('coding-agent-reader','Agent 帝国'),('interview-proof-reader','面试官的审判')]
+PROJECTS=[('pytorch-apprentice','PyTorch：炼金术士的学徒'),('ai-era-reader','AI 纪元'),('data-empire-reader','数据帝国'),('rag-empire-reader','RAG 帝国'),('system-design-reader','系统设计'),('online-troubleshooting-reader','生产环境'),('coding-agent-reader','Agent 帝国'),('interview-proof-reader','面试官的审判'), ('langchain-empire-reader', 'LangChain 帝国')]
 
 def page(title, body, chapter=0):
     menu=''.join(f'<a href="/{slug}/"'+(' aria-current="page"' if slug==BOOK['slug'] else '')+f'>{label}</a>' for slug,label in PROJECTS)
